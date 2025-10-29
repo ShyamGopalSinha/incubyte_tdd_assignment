@@ -4,5 +4,8 @@ RSpec.describe MyFile do
     it "returns 0 for an empty string" do
       expect(MyFile.add("")).to eq(0)
     end
-end
+    it "returns number for single input" do
+      expect(MyFile.add("1")).to eq(1)
+    end
+  end
 end
