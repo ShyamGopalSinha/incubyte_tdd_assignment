@@ -27,5 +27,8 @@ RSpec.describe MyFile do
     it "ignores numbers greater than 1000" do
       expect(MyFile.add("2,1001,6")).to eq(8)
     end
+    it "supports custom delimiter of any length like //[*]\n1*2" do
+      expect(MyFile.add("//[***]\n1***2***3")).to eq(6)
+    end
   end
 end
