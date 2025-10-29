@@ -4,9 +4,16 @@ class MyFile
         delimiters = [",", "\n"]
         if numbers.start_with?("//")
         delimiter_section, numbers = numbers.split("\n", 2)
-        custom_delimiter = delimiter_section[2] 
-        delimiters = [custom_delimiter]
+            if delimiter_section.start_with?("//[") 
+            custom_delimiters = delimiter_section.scan(/\[([^\]]+)\]/).flatten
+            delimiters = custom_delimiters
+            else
+            delimiters = [delimiter_section[2]]
+            end
         end
-        parts = numbers.split(Regexp.union(delimiters)).map(&:to_i).sum
+        parts = numbers.split(Regexp.union(delimiters)).map(&:to_i)
+        negatives = parts.select { |n| n < 0 }
+        raise "negatives not allowed: #{negatives.join(', ')}" if negatives.any?
+        parts.sum
     end
 end
