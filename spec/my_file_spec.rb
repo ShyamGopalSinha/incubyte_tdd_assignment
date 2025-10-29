@@ -23,6 +23,9 @@ RSpec.describe MyFile do
      expect {
        MyFile.add("1,-2,3,-5")
      }.to raise_error("negatives not allowed: -2, -5")
-   end
+    end
+    it "ignores numbers greater than 1000" do
+      expect(MyFile.add("2,1001,6")).to eq(8)
+    end
   end
 end
